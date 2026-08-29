@@ -49,8 +49,8 @@ _: {
 
       nix = {
         enable = true;
-        lsp.servers = ["nixd"];
-        format.type = ["nixfmt"];
+        lsp.servers = [ "nixd" ];
+        format.type = [ "nixfmt" ];
         extraDiagnostics = {
           enable = true;
           types = [
@@ -62,8 +62,35 @@ _: {
 
       lua = {
         enable = true;
-        format.type = ["stylua"];
+        format.type = [ "stylua" ];
         extensions.lazydev.enable = true;
+      };
+
+      clang = {
+        enable = true;
+        # Parse .h as C rather than C++; without this the treesitter parser and
+        # clangd disagree about headers in a pure C project.
+        cHeader = true;
+        lsp.servers = [ "clangd" ];
+        format.type = [ "clang-format" ];
+        extraDiagnostics = {
+          enable = true;
+          types = [ "clangtidy" ];
+        };
+      };
+
+      python = {
+        enable = true;
+        # basedpyright for types and navigation, ruff as a second server for lints.
+        lsp.servers = [
+          "basedpyright"
+          "ruff"
+        ];
+        # conform runs these in list order: lint autofixes, then formatting.
+        format.type = [
+          "ruff-fix"
+          "ruff"
+        ];
       };
     };
 
