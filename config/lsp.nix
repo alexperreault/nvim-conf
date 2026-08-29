@@ -21,8 +21,10 @@ _: {
 
         codeAction = "<leader>ca";
         renameSymbol = "<leader>cr";
-        format = "<leader>cf";
-        toggleFormatOnSave = "<leader>tf";
+
+        # Bound under `keymaps` below instead.
+        format = null;
+        toggleFormatOnSave = null;
 
         nextDiagnostic = "]d";
         previousDiagnostic = "[d";
@@ -95,6 +97,58 @@ _: {
     };
 
     keymaps = [
+      # --- Formatting ---------------------------------------------------------
+      {
+        key = "<leader>cf";
+        mode = [
+          "n"
+          "v"
+        ];
+        action = ''
+          function()
+            local conform = require('conform')
+            local formatters, lsp = conform.list_formatters_to_run(0)
+            local names = vim.tbl_map(function(f) return f.name end, formatters)
+            if lsp then
+              table.insert(names, 'LSP')
+            end
+            local with = #names > 0 and table.concat(names, ', ') or 'no formatter'
+
+            conform.format({ lsp_format = 'fallback', timeout_ms = 3000, quiet = true }, function(err, did_edit)
+              if err then
+                vim.notify(err, vim.log.levels.ERROR, { title = 'Format' })
+              elseif did_edit then
+                vim.notify('Formatted with ' .. with, vim.log.levels.INFO, { title = 'Format' })
+              else
+                vim.notify('Already formatted (' .. with .. ')', vim.log.levels.INFO, { title = 'Format' })
+              end
+            end)
+          end
+        '';
+        lua = true;
+        silent = true;
+        desc = "Format buffer or selection";
+      }
+      {
+        key = "<leader>tf";
+        mode = "n";
+        action = ''
+          function()
+            vim.b.disableFormatSave = not vim.b.disableFormatSave
+            if vim.b.disableFormatSave then
+              vim.notify('Format on save: off (buffer)', vim.log.levels.WARN, { title = 'Format' })
+            elseif vim.g.formatsave then
+              vim.notify('Format on save: on (buffer)', vim.log.levels.INFO, { title = 'Format' })
+            else
+              vim.notify('Format on save: on (buffer), but off globally', vim.log.levels.WARN, { title = 'Format' })
+            end
+          end
+        '';
+        lua = true;
+        silent = true;
+        desc = "Toggle format on save";
+      }
+
       {
         key = "<leader>xx";
         mode = "n";
