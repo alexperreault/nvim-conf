@@ -22,7 +22,7 @@ _: {
         codeAction = "<leader>ca";
         renameSymbol = "<leader>cr";
         format = "<leader>cf";
-        toggleFormatOnSave = "<leader>uf";
+        toggleFormatOnSave = "<leader>tf";
 
         nextDiagnostic = "]d";
         previousDiagnostic = "[d";

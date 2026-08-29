@@ -277,7 +277,7 @@
 
       # UI toggles
       {
-        key = "<leader>uu";
+        key = "<leader>tu";
         mode = "n";
         action = "<cmd>UndotreeToggle<cr>";
         silent = true;
