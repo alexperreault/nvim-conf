@@ -96,6 +96,25 @@ _: {
         desc = "Delete buffer (force)";
       }
       {
+        key = "<leader>bo";
+        mode = "n";
+        # delete() is non-force, so a modified buffer is kept and reported
+        # rather than silently discarded.
+        action = ''
+          function()
+            local current = vim.api.nvim_get_current_buf()
+            for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+              if buf ~= current and vim.bo[buf].buflisted then
+                require('mini.bufremove').delete(buf, false)
+              end
+            end
+          end
+        '';
+        lua = true;
+        silent = true;
+        desc = "Delete other buffers";
+      }
+      {
         key = "<leader>qq";
         mode = "n";
         action = "<cmd>qa<cr>";
