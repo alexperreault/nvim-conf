@@ -36,6 +36,26 @@ _: {
           }
         ''
       ];
+
+      # Time on the bottom right
+      activeSection.z = [
+        ''
+          {
+            "progress",
+            separator = {left = ''}
+          }
+        ''
+        ''
+          {"location"}
+        ''
+        ''
+          {
+            function()
+              return " " .. os.date('%H:%M')
+            end,
+          }
+        ''
+      ];
     };
 
     tabline.nvimBufferline = {
