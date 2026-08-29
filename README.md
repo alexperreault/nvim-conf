@@ -1,6 +1,7 @@
 # nvim-conf
 
 Ma config Neovim, construite avec [nvf](https://nvf.notashelf.dev/).
+À utiliser à vos risques et périls. Rien de m'empêche de force push main pour le plaisir.
 
 ## Installation
 
