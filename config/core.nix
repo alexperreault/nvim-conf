@@ -30,6 +30,8 @@ _: {
       sidescrolloff = 8;
       wrap = true;
       cursorline = true;
+      # Necessary for #ffc777 line number (fights nvf's defaults)
+      cursorlineopt = "both";
       splitbelow = true;
       splitright = true;
       splitkeep = "screen";

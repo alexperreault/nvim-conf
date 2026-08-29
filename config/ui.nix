@@ -7,6 +7,21 @@ _: {
       transparent = true;
     };
 
+    # Increase visibility of line numbers
+    highlight = {
+      LineNr = {
+        fg = "#737aa2";
+        bg = "NONE";
+      };
+      LineNrAbove.link = "LineNr";
+      LineNrBelow.link = "LineNr";
+      CursorLineNr = {
+        fg = "#ffc777";
+        bg = "NONE";
+        bold = true;
+      };
+    };
+
     statusline.lualine = {
       enable = true;
       globalStatus = true;
