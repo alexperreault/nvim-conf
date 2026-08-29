@@ -61,6 +61,6 @@
         };
       });
 
-      formatter = forAllSystems (pkgs: pkgs.alejandra);
+      formatter = forAllSystems (pkgs: pkgs.nixfmt);
     };
 }
