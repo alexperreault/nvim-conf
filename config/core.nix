@@ -63,14 +63,14 @@ _: {
       {
         key = "<S-h>";
         mode = "n";
-        action = "<cmd>bprevious<cr>";
+        action = "<cmd>BufferLineCyclePrev<cr>";
         silent = true;
         desc = "Previous buffer";
       }
       {
         key = "<S-l>";
         mode = "n";
-        action = "<cmd>bnext<cr>";
+        action = "<cmd>BufferLineCycleNext<cr>";
         silent = true;
         desc = "Next buffer";
       }
