@@ -25,6 +25,9 @@
       };
     };
 
+    # First thing i'll use anyway
+    lazy.plugins."fzf-lua".lazy = false;
+
     # --- File tree ----------------------------------------------------------
     filetree.neo-tree = {
       enable = true;
