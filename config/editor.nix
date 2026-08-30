@@ -245,11 +245,38 @@
       }
       {
         key = "<leader>gb";
-        mode = "n";
-        action = "function() require('gitsigns').blame() end";
+        mode = [
+          "n"
+          "x"
+        ];
+
+        # lazyvim (snacks) like git blame
+        action = ''
+          function()
+            local fzf = require('fzf-lua')
+            if require('fzf-lua.utils').mode_is_visual() then
+              fzf.git_bcommits()
+              return
+            end
+            local l = vim.fn.line('.')
+            local dir = vim.fn.expand('%:p:h')
+            local hd = vim.fn.systemlist({ 'git', '-C', dir, 'blame', '-L', l .. ',' .. l,
+              '--porcelain', '--', vim.fn.expand('%:p') })[1] or ""
+            local sha, orig = hd:match('^(%x+) (%d+)')
+            if not sha or sha:match('^0+$') then
+              vim.notify('Line has no committed history yet', vim.log.levels.WARN, { title = 'Git blame' })
+              return
+            end
+            fzf.git_bcommits({
+              cmd = 'git log --color --pretty=format:"%C(yellow)%h%Creset '
+                .. '%Cgreen(%><(12)%cr%><|(12))%Creset %s %C(blue)<%an>%Creset"'
+                .. ' -L ' .. orig .. ',' .. orig .. ':{file} ' .. sha .. ' --no-patch',
+            })
+          end
+        '';
         lua = true;
         silent = true;
-        desc = "Git blame (file)";
+        desc = "Git blame (line history)";
       }
       {
         key = "<leader>gB";
