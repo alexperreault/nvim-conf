@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   vim = {
     # nvf pins other tools by store path in the generated Lua; these two are
     # looked up on PATH at runtime.
@@ -94,6 +94,11 @@
       setupOpts.direction = "float";
       lazygit.enable = true;
     };
+
+    # No borders on lazygit
+    lazy.plugins.toggleterm-nvim.after = lib.mkAfter ''
+      lazygit.float_opts = { border = "none" }
+    '';
 
     session.persisted.enable = true;
     projects.project-nvim.enable = true;
