@@ -19,10 +19,10 @@ _: {
         hover = "K";
         signatureHelp = "gK";
 
-        codeAction = "<leader>ca";
+        # Bound under `keymaps` below instead.
+        codeAction = null;
         renameSymbol = "<leader>cr";
 
-        # Bound under `keymaps` below instead.
         format = null;
         toggleFormatOnSave = null;
 
@@ -97,6 +97,18 @@ _: {
     };
 
     keymaps = [
+      {
+        key = "<leader>ca";
+        mode = [
+          "n"
+          "v"
+        ];
+        action = "function() require('fzf-lua').lsp_code_actions() end";
+        lua = true;
+        silent = true;
+        desc = "Code action";
+      }
+
       # --- Formatting ---------------------------------------------------------
       {
         key = "<leader>cf";

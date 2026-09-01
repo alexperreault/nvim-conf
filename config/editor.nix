@@ -22,6 +22,9 @@
         # The telescope profile sets --layout=default, which fills the window
         # bottom-up with the prompt on the last line.
         fzf_opts."--layout" = "reverse";
+
+        # Necessary for selections like leader c a
+        ui_select = { };
       };
     };
 
