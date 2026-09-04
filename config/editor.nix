@@ -311,9 +311,10 @@
       {
         key = "<leader>gd";
         mode = "n";
-        action = "<cmd>DiffviewOpen<cr>";
+        action = "function() if require('diffview.lib').get_current_view() then vim.cmd('DiffviewClose') else vim.cmd('DiffviewOpen') end end";
+        lua = true;
         silent = true;
-        desc = "Diff view";
+        desc = "Toggle diff view";
       }
 
       # UI toggles
