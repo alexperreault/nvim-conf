@@ -1,7 +1,7 @@
 # nvim-conf
 
-Ma config Neovim, construite avec [nvf](https://nvf.notashelf.dev/).
-À utiliser à vos risques et périls. Rien ne m'empêche de force push main pour le plaisir.
+Ma config Neovim, construite avec [nvf](https://nvf.notashelf.dev/). À utiliser
+à vos risques et périls. Rien ne m'empêche de force push main pour le plaisir.
 
 ## Installation
 
@@ -17,7 +17,8 @@ Pour l'essayer sans rien installer :
 nix run github:alexperreault/nvim-conf
 ```
 
-Fournit `nvim`, ainsi que les alias `vi` et `vim`. N'affecte pas `~/.config/nvim`
+Fournit `nvim`, ainsi que les alias `vi` et `vim`. N'affecte pas
+`~/.config/nvim`
 
 Mise à jour : `nix profile upgrade nvim`.
 

@@ -81,6 +81,13 @@ _: {
         };
       };
 
+      markdown = {
+        enable = true;
+        lsp.enable = true;
+        format.enable = true;
+        extensions.render-markdown-nvim.enable = true;
+      };
+
       python = {
         enable = true;
         # basedpyright for types and navigation, ruff as a second server for lints.
