@@ -45,7 +45,10 @@
             hide_gitignored = true;
           };
         };
-        window.width = 32;
+        window = {
+          position = "right";
+          width = 32;
+        };
       };
     };
 
