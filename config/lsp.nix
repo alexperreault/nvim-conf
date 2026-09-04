@@ -83,8 +83,7 @@ _: {
 
       markdown = {
         enable = true;
-        lsp.enable = true;
-        format.enable = true;
+        format.type = [ "rumdl" ];
         extensions.render-markdown-nvim.enable = true;
       };
 
