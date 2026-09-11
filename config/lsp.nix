@@ -1,4 +1,5 @@
-_: {
+{ lib, ... }:
+{
   vim = {
     lsp = {
       enable = true;
@@ -201,6 +202,38 @@ _: {
         action = "<cmd>Trouble qflist toggle<cr>";
         silent = true;
         desc = "Quickfix list (Trouble)";
+      }
+    ];
+
+    # switch between .c and .h
+    autocmds = [
+      {
+        event = [ "FileType" ];
+        pattern = [
+          "c"
+          "cpp"
+          "objc"
+          "objcpp"
+        ];
+        desc = "C/C++: bind switch source/header";
+        callback = lib.generators.mkLuaInline ''
+          function()
+            vim.keymap.set('n', '<leader>ch', function()
+              local params = vim.lsp.util.make_text_document_params()
+              vim.lsp.buf_request(0, 'textDocument/switchSourceHeader', params, function(err, result)
+                if err then
+                  vim.notify(err.message, vim.log.levels.ERROR, { title = 'clangd' })
+                  return
+                end
+                if not result then
+                  vim.notify('Corresponding source/header not found', vim.log.levels.WARN, { title = 'clangd' })
+                  return
+                end
+                vim.cmd('edit ' .. vim.uri_to_fname(result))
+              end)
+            end, { buffer = true, silent = true, desc = 'Switch Source/Header' })
+          end
+        '';
       }
     ];
   };
