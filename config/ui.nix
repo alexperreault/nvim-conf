@@ -1,4 +1,8 @@
-_: {
+{ lib, ... }:
+let
+  inherit (lib.generators) mkLuaInline;
+in
+{
   vim = {
     theme = {
       enable = true;
@@ -24,38 +28,40 @@ _: {
 
     statusline.lualine = {
       enable = true;
-      globalStatus = true;
 
-      # Drops the '▎' separator nvf puts before the mode.
-      activeSection.a = [
-        ''
-          {
-            "mode",
-            icons_enabled = true,
-            separator = {left = ''', right = '''},
-          }
-        ''
-      ];
+      setupOpts = {
+        options.globalstatus = true;
 
-      # Time on the bottom right
-      activeSection.z = [
-        ''
-          {
-            "progress",
-            separator = {left = ''}
-          }
-        ''
-        ''
-          {"location"}
-        ''
-        ''
-          {
-            function()
-              return " " .. os.date('%H:%M')
-            end,
-          }
-        ''
-      ];
+        sections = {
+          # Drops the '▎' separator nvf puts before the mode.
+          lualine_a = [
+            {
+              "@1" = "mode";
+              icons_enabled = true;
+              separator = {
+                left = "";
+                right = "";
+              };
+            }
+          ];
+
+          # Time on the bottom right
+          lualine_z = [
+            {
+              "@1" = "progress";
+              separator.left = "";
+            }
+            [ "location" ]
+            (mkLuaInline ''
+              {
+                function()
+                  return " " .. os.date('%H:%M')
+                end,
+              }
+            '')
+          ];
+        };
+      };
     };
 
     tabline.nvimBufferline = {
